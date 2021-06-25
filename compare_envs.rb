@@ -18,6 +18,8 @@ def compare_hashes(hash1, hash2)
     puts "hash1: #{hash1[key]}, hash2: #{hash2[key]}"
     puts ""
   end
+
+  puts "Total #{mismatched_keys.size} mismatches."
 end
 
 compare_hashes(env1_config.config, env2_config.config)
