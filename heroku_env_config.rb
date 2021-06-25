@@ -19,15 +19,22 @@ class HerokuEnvConfig
 
   def config_hash
     hash = {}
+    last_key = nil
+    key_value_regex = /([A-Z0-9_]+): +(.*)/
 
-    keys = config_string.scan(/\n([A-Z0-9_]+):/).flatten
-    keys_except_last = keys[0..-2]
+    config_array = config_string.split("\n").reject { |c| c.empty? }
+    config_array.each do |config_row|
+      puts config_row
+      match = config_row.match(key_value_regex)
 
-    keys_except_last.each do |key|
-      puts key
-      regex = /\n#{key}: +(.*)\n([A-Z0-9_]+):/
-      value = config_string.match(regex)[1]
-      hash[key] = value
+      if match
+        key = match[1]
+        value = match[2]
+        hash[key] = value
+        last_key = key
+      else
+        hash[last_key] += "\n" + config_row
+      end
     end
 
     hash
