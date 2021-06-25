@@ -1,12 +1,18 @@
+# rubocop:disable all
 # frozen_string_literal: true
 
+require_relative 'clean_inspect'
+
 class HerokuEnvConfig
+  include CleanInspect
+
   attr_reader :env_name, :config_string
 
   def initialize(env_name)
     @env_name = env_name
     @config_string = fetch_config_string
     @config = {}
+    @excluded_inspect_vars = [:@config_string]
   end
 
   def config
