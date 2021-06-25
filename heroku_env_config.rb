@@ -24,7 +24,6 @@ class HerokuEnvConfig
 
     config_array = config_string.split("\n").reject { |c| c.empty? }
     config_array.each do |config_row|
-      puts config_row
       match = config_row.match(key_value_regex)
 
       if match
@@ -39,6 +38,7 @@ class HerokuEnvConfig
 
     hash
   end
+  memoize :config_hash
 
   def fetch_config_string
     config_string = `heroku config -a #{env_name}`
