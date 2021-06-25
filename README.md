@@ -1,3 +1,3 @@
-# heroku_env_var_compare
+## Description
 
 Find any differences between two heroku apps' environment variables.
