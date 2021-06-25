@@ -38,7 +38,6 @@ class HerokuEnvConfig
 
     hash
   end
-  memoize :config_hash
 
   def fetch_config_string
     config_string = `heroku config -a #{env_name}`
